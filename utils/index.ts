@@ -3,7 +3,7 @@
  * @param {*} o
  * @returns
  */
-function cloneTwo(o: string | any[]) {
+function cloneTwo(o: number[][]) {
   const ret = []
   for (let j = 0; j < o.length; j++) {
     const i = o[j]
@@ -14,7 +14,7 @@ function cloneTwo(o: string | any[]) {
 
 /**
  * 准备质数
- * @param {Int} num 质数范围
+ * @param {number} total 质数范围
  * @returns []
  */
 export function getPrime(total: number) {
@@ -47,13 +47,13 @@ export function getPrime(total: number) {
  * @param {*} openWay 可用的 SKU 组合
  */
 export class PathFinder {
-  maps: any
+  maps: number[][]
   openWay: any
   _way: any
   light: any
   selected: any[]
   count: any
-  constructor(maps: any, openWay: any) {
+  constructor(maps: number[][], openWay: any) {
     this.maps = maps
     this.openWay = openWay
     this._way = {}
@@ -161,12 +161,14 @@ export class PathFinder {
     return ret
   }
 
-  /** 选择可选规格后处理
+  /**
+   * 选择可选规格后处理
    * @param {array} point [x, y]
    */
-  add(point: string | (string | number)[]) {
+  add(point: (string | number)[]) {
+    console.log(point)
     point = point instanceof Array ? point : this._way[point]
-    const val = this.maps[point[0]][point[1]]
+    const val = (this.maps as unknown as any)[point[0]][point[1]]
 
     // 检查是否可选中
     if (!this.light[point[0]][point[1]]) {

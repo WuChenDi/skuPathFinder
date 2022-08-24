@@ -6,15 +6,21 @@ interface ValueInLabels {
   [elem: string]: number
 }
 
+interface CanUseSku {
+  skuName: string[]
+  skuPrime: number[]
+  stock: number
+}
+
 const SKU = (props: { type: string[][] }) => {
   // 规格
   const { type } = props
   // 已经选中的规格
-  const [selected, setSelected] = useState<any>([])
+  const [selected, setSelected] = useState<string[]>([])
   // 可选规格
-  const [unDisabled, setUnDisabled] = useState<any>([])
+  const [unDisabled, setUnDisabled] = useState<number[]>([])
   // 可用 sku
-  const [canUseSku, setCanUseSku] = useState<any>([])
+  const [canUseSku, setCanUseSku] = useState<CanUseSku[]>([])
   // 质数，规格枚举值
   const [valueInLabel, setValueInLabel] = useState<ValueInLabels>({})
   // 预留 sku 工具包
@@ -33,9 +39,7 @@ const SKU = (props: { type: string[][] }) => {
     setValueInLabel(_valueInLabel)
 
     // 根据规格坐标，排序质数坐标
-    const way = type.map((i: any[]) => {
-      return i.map(ii => _valueInLabel[ii])
-    })
+    const way = type.map((i) => i.map(ii => _valueInLabel[ii]))
     // 使用笛卡尔积计算下sku
     const sku = descartes(type).map((item) => {
       return {
@@ -61,10 +65,6 @@ const SKU = (props: { type: string[][] }) => {
 
     setUnDisabled(_unDisabled)
   }, [type])
-
-  useEffect(() => {
-    console.log(pathFinder)
-  }, [pathFinder])
 
   /**
    * 点击选择规格
