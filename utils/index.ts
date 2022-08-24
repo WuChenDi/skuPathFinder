@@ -247,7 +247,7 @@ export class PathFinder {
  * @param {Array} list
  * @returns []
  */
-export function descartes(list: { [x: string]: string | any[] }) {
+export function descartes(list: string[][]) {
   // parent上一级索引;count指针计数
   const point: any = {} // 准备移动指针
   const result = [] // 准备返回数据

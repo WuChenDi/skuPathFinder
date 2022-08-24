@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { Button } from 'antd'
 import { getPrime, PathFinder, descartes } from 'utils/index'
 
-const SKU = (props: { type: any }) => {
+interface ValueInLabels {
+  [elem: string]: number
+}
+
+const SKU = (props: { type: string[][] }) => {
   // 规格
   const { type } = props
   // 已经选中的规格
@@ -12,7 +16,7 @@ const SKU = (props: { type: any }) => {
   // 可用 sku
   const [canUseSku, setCanUseSku] = useState<any>([])
   // 质数，规格枚举值
-  const [valueInLabel, setValueInLabel] = useState<any>({})
+  const [valueInLabel, setValueInLabel] = useState<ValueInLabels>({})
   // 预留 sku 工具包
   const [pathFinder, setPathFinder] = useState<any>(null)
 
@@ -22,8 +26,8 @@ const SKU = (props: { type: any }) => {
     // 通过抹平规格，获取规格对应质数
     const prime = getPrime(types.length)
     // 质数对应规格数 枚举值处理
-    const _valueInLabel: any = {}
-    types.forEach((item: string | number, index: number) => {
+    const _valueInLabel: ValueInLabels = {}
+    types.forEach((item: string, index: number) => {
       _valueInLabel[item] = prime[index]
     })
     setValueInLabel(_valueInLabel)
@@ -33,7 +37,7 @@ const SKU = (props: { type: any }) => {
       return i.map(ii => _valueInLabel[ii])
     })
     // 使用笛卡尔积计算下sku
-    const sku = (descartes(type) as any).map((item: any[]) => {
+    const sku = descartes(type).map((item) => {
       return {
         // 随机库存内容
         stock: Math.floor(Math.random() * 10) > 5 ? 0 : 1,
@@ -56,7 +60,11 @@ const SKU = (props: { type: any }) => {
     const _unDisabled = _pathFinder.getWay().flat()
 
     setUnDisabled(_unDisabled)
-  }, [])
+  }, [type])
+
+  useEffect(() => {
+    console.log(pathFinder)
+  }, [pathFinder])
 
   /**
    * 点击选择规格
