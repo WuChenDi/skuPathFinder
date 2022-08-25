@@ -48,14 +48,16 @@ export function getPrime(total: number) {
  */
 export class PathFinder {
   maps: number[][]
-  openWay: any
+  openWay: number[][]
+  _openWay: number[]
   _way: any
   light: any
   selected: any[]
   count: any
-  constructor(maps: number[][], openWay: any) {
+  constructor(maps: number[][], openWay: number[][]) {
     this.maps = maps
     this.openWay = openWay
+    this._openWay = []
     this._way = {}
     this.light = []
     this.selected = []
@@ -81,7 +83,7 @@ export class PathFinder {
     // 得到每个可操作的 SKU 质数的集合
     for (let i = 0; i < this.openWay.length; i++) {
       // eslint-disable-next-line no-eval
-      this.openWay[i] = eval(this.openWay[i].join('*'))
+      this._openWay[i] = eval(this.openWay[i].join('*'))
     }
     // return 初始化得到规格位置，规格默认可选处理，可选 SKU 的规格对应的质数合集
     this._check()
@@ -123,13 +125,13 @@ export class PathFinder {
    */
   _checkItem(item: number, selected: number) {
     // 拿到可以选择的 SKU 内容集合
-    const { openWay } = this
+    const { _openWay } = this
     const val = item * selected
     // 拿到已经选中规格集合*此规格集合值
     // 可选 SKU 集合反除，查询是否可选
-    for (let i = 0; i < openWay.length; i++) {
+    for (let i = 0; i < _openWay.length; i++) {
       this.count++
-      if (openWay[i] % val === 0) return 1
+      if (_openWay[i] % val === 0) return 1
     }
     return 0
   }
