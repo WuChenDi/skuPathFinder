@@ -1,4 +1,4 @@
-# pnpm-workspace-examples
+# sku-path-finder
 
 An example of developing a product specification (SKU) selection using next.
 
