@@ -1,6 +1,7 @@
 {
-  "name": "sku",
+  "name": "sku-path-finder",
   "version": "0.1.0",
+  "description": "Specification selection path handling.",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,6 +10,15 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WuChenDi/skuPathFinder.git"
+  },
+  "license": "MIT license",
+  "bugs": {
+    "url": "https://github.com/WuChenDi/skuPathFinder/issues"
+  },
+  "homepage": "https://github.com/WuChenDi/skuPathFinder",
   "dependencies": {
     "antd": "^4.22.7",
     "next": "12.2.5",

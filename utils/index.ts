@@ -168,7 +168,6 @@ export class PathFinder {
    * @param {array} point [x, y]
    */
   add(point: (string | number)[]) {
-    console.log(point)
     point = point instanceof Array ? point : this._way[point]
     const val = (this.maps as unknown as any)[point[0]][point[1]]
 
