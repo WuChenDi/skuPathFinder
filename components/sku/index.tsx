@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Button } from 'antd'
 import { getPrime, PathFinder, descartes } from 'utils/index'
+// import { getPrime, PathFinder, descartes } from 'utils/index_backup'
 
 interface ValueInLabels {
   [elem: string]: number
@@ -41,18 +42,20 @@ const SKU = (props: { type: string[][] }) => {
     // 根据规格坐标，排序质数坐标
     const way = type.map((i) => i.map(ii => _valueInLabel[ii]))
     // 使用笛卡尔积计算下sku
-    const sku = descartes(type).map((item) => {
+    // @ts-ignore
+    const sku: CanUseSku[] = descartes(type).map((item) => {
       return {
         // 随机库存内容
         stock: Math.floor(Math.random() * 10) > 5 ? 0 : 1,
         // 规格名
         skuName: item,
         // 规格对应质数
+        // @ts-ignore
         skuPrime: item.map(ii => _valueInLabel[ii])
       }
     })
     // 筛选可选的 SKU
-    const _canUseSku = sku.filter((item: { stock: any }) => item.stock)
+    const _canUseSku = sku.filter((item) => item.stock)
     setCanUseSku(_canUseSku)
     // 初始化规格展示内容
     const _pathFinder = new PathFinder(
@@ -106,9 +109,9 @@ const SKU = (props: { type: string[][] }) => {
 
   return (
     <div>
-      <h3>React SKU 展示模版</h3>
+      <h3>React SKU Display Template.</h3>
       <div>
-        规格:
+        Specification:
         {type.map((item: any[], index: number) => (
           <div style={{ margin: 10 }} key={index}>
             {item.map((btn, bIndex) => (
@@ -124,7 +127,7 @@ const SKU = (props: { type: string[][] }) => {
             ))}
           </div>
         ))}
-        可选的SKU:
+        Selectable SKU:
         {canUseSku.map((item: any, index: number) => (
           <Button style={{ margin: '0 10px' }} key={index}>
             {item.skuName}
