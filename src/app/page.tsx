@@ -1,7 +1,6 @@
-import type { NextPage } from 'next'
-import SKU from 'components/sku'
+import SKU from '@/components/sku'
 
-const Home: NextPage = () => {
+export default function Home() {
   const skuType = [
     ['男裤', '女裤'],
     ['黑色', '白色'],
@@ -13,5 +12,3 @@ const Home: NextPage = () => {
     </div>
   )
 }
-
-export default Home

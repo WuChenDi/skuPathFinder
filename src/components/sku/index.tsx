@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+'use client'
+
 import React, { useState, useEffect } from 'react'
 import { Button } from 'antd'
-import { getPrime, PathFinder, descartes } from 'utils/index'
-// import { getPrime, PathFinder, descartes } from 'utils/index_backup'
+import { getPrime, PathFinder, descartes } from '@/utils'
 
 interface ValueInLabels {
   [elem: string]: number
@@ -42,7 +44,6 @@ const SKU = (props: { type: string[][] }) => {
     // 根据规格坐标，排序质数坐标
     const way = type.map((i) => i.map(ii => _valueInLabel[ii]))
     // 使用笛卡尔积计算下sku
-    // @ts-ignore
     const sku: CanUseSku[] = descartes(type).map((item) => {
       return {
         // 随机库存内容
@@ -50,7 +51,6 @@ const SKU = (props: { type: string[][] }) => {
         // 规格名
         skuName: item,
         // 规格对应质数
-        // @ts-ignore
         skuPrime: item.map(ii => _valueInLabel[ii])
       }
     })
@@ -108,10 +108,10 @@ const SKU = (props: { type: string[][] }) => {
   }
 
   return (
-    <div>
-      <h3>React SKU Display Template.</h3>
+    <div className='relative max-w-5xl mx-auto pt-20 sm:pt-24 lg:pt-32'>
+      <h3 className='text-slate-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight text-center'>React SKU Display Template.</h3>
       <div>
-        Specification:
+        <p className='mt-6 text-lg text-slate-600 text-center max-w-3xl mx-auto dark:text-slate-400'>Specification:</p>
         {type.map((item: any[], index: number) => (
           <div style={{ margin: 10 }} key={index}>
             {item.map((btn, bIndex) => (

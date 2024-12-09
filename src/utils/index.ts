@@ -1,15 +1,15 @@
 /**
  * support two level array clone
- * @param {*} o
- * @returns
+ * @param {Array} o Input array
+ * @returns Cloned array
  */
-function cloneTwo<T extends any[]>(o: T): T {
-  const ret: any[] = [];
+function cloneTwo<T>(o: T[]): T[] {
+  const ret: T[] = [];
   for (let j = 0; j < o.length; j++) {
     const i = o[j];
-    ret.push(i.slice ? i.slice() : i);
+    ret.push((i as unknown as { slice(): T }).slice ? (i as unknown as { slice(): T }).slice() : i);
   }
-  return ret as T;
+  return ret;
 }
 
 /**
@@ -44,15 +44,15 @@ export function getPrime(total: number): number[] {
  * @param lists An array of arrays.
  * @returns An array containing all possible combinations of elements from each of the input arrays.
  */
-export function descartes<T extends any[]>(lists: T): Array<Array<T[number]>> {
+export function descartes<T>(lists: T[][]): T[][] {
   const pointers: Array<{ parent: number | null, index: number }> = [];
-  const result: Array<Array<T[number]>> = [];
-  let temp: Array<T[number]> = [];
+  const result: T[][] = [];
+  let temp: T[] = [];
   let currentPointerIndex: number | null = null;
 
   // If the input data structure is not an array of arrays, return the original data.
   if (lists.some(sublist => !Array.isArray(sublist))) {
-    return lists as Array<Array<T[number]>>;
+    return lists;
   }
 
   // Initialize the pointer structure.
@@ -219,7 +219,7 @@ export class PathFinder {
    */
   add(point: (string | number)[]): void {
     point = point instanceof Array ? point : this._way[point]
-    const val = (this.maps as unknown as any)[point[0]][point[1]]
+    const val = this.maps[point[0] as number][point[1] as number];
 
     // Check if it is selectable.
     if (!this.light[(point[0] as number)][(point[1] as number)]) {
